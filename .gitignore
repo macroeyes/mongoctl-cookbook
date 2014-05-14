@@ -1,3 +1,13 @@
 *.iml
 .idea/
 atlassian-ide-plugin.xml
+
+# bundler
+.bundle/bin/*
+!.bundle/bin/.gitkeep
+.bundle/*
+!.bundle/config
+
+# test-kitchen
+.kitchen/
+.kitchen.local.yml
