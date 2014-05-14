@@ -3,7 +3,14 @@
 # Attributes:: default
 #
 
-default[:mongoctl][:config_dir] = "#{node[:user][:home]}/.mongoctl"
+default[:mongoctl][:users] = []
+# e.g.
+# default[:mongoctl][:users] = [{
+#   :username => 'vagrant',
+#   :group => 'vagrant',
+#   :home_dir => '/home/vagrant',
+#   :config_dir => '/home/vagrant/.mongoctl'
+# }]
 
 default[:mongoctl][:config_filename] = 'mongoctl.config.json'
 default[:mongoctl][:config_filepath] = "#{node[:mongoctl][:config_dir]}/#{node[:mongoctl][:config_filename]}"
