@@ -11,13 +11,16 @@ include_recipe 'mongoctl::install'
 
 node[:mongoctl][:users].each do |user|
 
-  directory user[:config_dir] do
+  home_dir = user[:home_dir] || "/home/#{user[:username]}"
+  config_dir = user[:config_dir] || "#{home_dir}/.mongoctl"
+
+  directory config_dir do
     owner user[:username]
     group user[:group] || user[:username]
     action :create
   end
 
-  template node[:mongoctl][:servers_config_filepath] do
+  template "#{config_dir}/#{node[:mongoctl][:servers_config_filename]}" do
     source node[:mongoctl][:servers_config_template]
     mode 0600
     owner user[:username]
@@ -27,7 +30,7 @@ node[:mongoctl][:users].each do |user|
     })
   end
 
-  template node[:mongoctl][:clusters_config_filepath] do
+  template "#{config_dir}/#{node[:mongoctl][:clusters_config_filename]}" do
     source node[:mongoctl][:clusters_config_template]
     mode 0600
     owner user[:username]
@@ -37,7 +40,7 @@ node[:mongoctl][:users].each do |user|
     })
   end
 
-  template node[:mongoctl][:config_filepath] do
+  template "#{config_dir}/#{node[:mongoctl][:config_filename]}" do
     source node[:mongoctl][:config_template]
     mode 0600
     owner user[:username]
@@ -53,7 +56,7 @@ node[:mongoctl][:users].each do |user|
     bash 'install mongodb' do
       owner user[:username]
       group user[:group] || user[:username]
-      cwd user[:home_dir] || "/home/#{user[:username]}"
+      cwd home_dir
       code "mongoctl install-mongodb #{node[:mongoctl][:mongodb][:install_version]}"
     end
   end
