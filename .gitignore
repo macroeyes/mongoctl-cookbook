@@ -1,13 +1,28 @@
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+pkg/
+
+.DS_Store
 *.iml
 .idea/
 atlassian-ide-plugin.xml
 
-# bundler
-.bundle/bin/*
-!.bundle/bin/.gitkeep
+# Berkshelf
+.vagrant
+/cookbooks
+Berksfile.lock
+
+# Bundler
+Gemfile.lock
+bin/*
 .bundle/*
 !.bundle/config
+.bundle/bin/*
+!.bundle/bin/.gitkeep
 
-# test-kitchen
 .kitchen/
 .kitchen.local.yml

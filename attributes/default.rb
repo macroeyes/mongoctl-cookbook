@@ -1,1 +1,6 @@
-default["mongoctl"]["users"] = [{"name"=> "web"}]
+#
+# Cookbook Name:: mongoctl
+# Attributes:: default
+#
+
+default[:mongoctl][:users] = []
