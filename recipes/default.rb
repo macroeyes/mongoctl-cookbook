@@ -61,7 +61,7 @@ node[:mongoctl][:users].each do |mongoctl_user|
 
   if node[:mongoctl][:install_mongodb]
     bash 'install mongodb' do
-      owner mongoctl_user[:username]
+      user mongoctl_user[:username]
       group mongoctl_user[:group] || mongoctl_user[:username]
       cwd home_dir
       code "mongoctl install-mongodb #{node[:mongoctl][:mongodb][:install_version]}"
