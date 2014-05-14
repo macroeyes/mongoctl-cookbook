@@ -34,7 +34,7 @@ node[:mongoctl][:users].each do |user|
     user name
     group name
     cwd home
-    environment :HOME => home
+    environment 'HOME' => home
     code "mongoctl install-mongodb #{user[:version]}"
   end
 end
