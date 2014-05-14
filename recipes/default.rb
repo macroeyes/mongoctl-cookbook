@@ -9,7 +9,7 @@
 include_recipe 'user::default'
 include_recipe 'mongoctl::install'
 
-node[:users].each do |user|
+node[:mongoctl][:users].each do |user|
 
   directory user[:config_dir] do
     owner user[:username]
@@ -53,9 +53,9 @@ node[:users].each do |user|
     bash 'install mongodb' do
       owner user[:username]
       group user[:group] || user[:username]
-      cwd user[:home_dir]
+      cwd user[:home_dir] || "/home/#{user[:username]}"
       code "mongoctl install-mongodb #{node[:mongoctl][:mongodb][:install_version]}"
     end
   end
-  
+
 end
