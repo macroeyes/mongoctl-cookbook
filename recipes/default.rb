@@ -13,6 +13,7 @@ node[:mongoctl][:users].each do |mongoctl_user|
 
   home_dir = mongoctl_user[:home_dir] || "/home/#{mongoctl_user[:username]}"
   config_dir = mongoctl_user[:config_dir] || "#{home_dir}/.mongoctl"
+  install_dir = mongoctl_user[:install_dir] || "#{config_dir}/mongodb"
 
   # ensure mongoctl_user has access to /var/log
   group 'adm' do
@@ -21,10 +22,13 @@ node[:mongoctl][:users].each do |mongoctl_user|
     append true
   end
 
-  directory config_dir do
-    owner mongoctl_user[:username]
-    group mongoctl_user[:group] || mongoctl_user[:username]
-    action :create
+  [install_dir, config_dir].each do |dir|
+    directory dir do
+      owner mongoctl_user[:username]
+      group mongoctl_user[:group] || mongoctl_user[:username]
+      recursive true
+      action :create
+    end
   end
 
   [node[:mongoctl][:dbpath], node[:mongoctl][:log_dir]].each do |dir|
@@ -59,6 +63,7 @@ node[:mongoctl][:users].each do |mongoctl_user|
     owner mongoctl_user[:username]
     group mongoctl_user[:group] || mongoctl_user[:username]
     variables(
+      :install_dir => install_dir,
       :servers_config_filename => node[:mongoctl][:servers_config_filename],
       :clusters_config_filename => node[:mongoctl][:clusters_config_filename]
     )
