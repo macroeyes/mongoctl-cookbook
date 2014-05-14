@@ -1,0 +1,29 @@
+[
+    {
+        "_id": "mongodb-cluster",
+
+        "description": "mongodb replica-set cluster (2 node + arbiter)",
+
+        "members": [
+            {
+                "server": {
+                    "$ref": "servers",
+                    "$id": "mongodb-cluster-1"
+                }
+            },
+            {
+                "server": {
+                    "$ref": "servers",
+                    "$id": "mongodb-cluster-2"
+                }
+            },
+            {
+                "server": {
+                    "$ref": "servers",
+                    "$id": "mongodb-cluster-arbiter"
+                },
+                "arbiterOnly": true
+            }
+        ]
+    }
+]

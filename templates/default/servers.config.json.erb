@@ -1,0 +1,69 @@
+[
+    {
+        "_id": "mongodb",
+
+        "description": "mongodb server (single mongod)",
+
+        "address": "localhost",
+        "cmdOptions": {
+            "port": 27017,
+            "dbpath": "/var/lib/mongodb",
+            "logpath": "/var/log/mongodb/mongod.log",
+            "logappend": true,
+            "profile": "1",
+            "slowms": "100",
+            "quiet": true
+        }
+    },
+
+    {
+        "_id": "mongodb-cluster-1",
+
+        "description": "mongodb-cluster member (primary)",
+
+        "address": "localhost",
+        "cmdOptions": {
+            "port": 37017,
+            "dbpath": "/var/lib/mongodb",
+            "logpath": "/var/log/mongodb/mongod.log",
+            "logappend": true,
+            "profile": "1",
+            "slowms": "100",
+            "quiet": true
+        }
+    },
+
+    {
+        "_id": "mongodb-cluster-2",
+
+        "description": "mongodb-cluster member (secondary)",
+
+        "address": "localhost",
+        "cmdOptions": {
+            "port": 37027,
+            "dbpath": "/var/lib/mongodb.secondary",
+            "logpath": "/var/log/mongodb/mongod.log",
+            "logappend": true,
+            "profile": "1",
+            "slowms": "100",
+            "quiet": true
+        }
+    },
+
+    {
+        "_id": "mongodb-cluster-arbiter",
+
+        "description": "mongodb-cluster arbiter",
+
+        "address": "localhost",
+        "cmdOptions": {
+            "port": 37037,
+            "dbpath": "/var/lib/mongodb.arbiter",
+            "logpath": "/var/log/mongodb/mongod.log",
+            "logappend": true,
+            "nojournal": true,
+            "slowms": "100",
+            "quiet": true
+        }
+    }
+]
