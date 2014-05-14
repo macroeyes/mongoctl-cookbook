@@ -27,14 +27,23 @@ node[:mongoctl][:users].each do |mongoctl_user|
     action :create
   end
 
+  [node[:mongoctl][:dbpath], node[:mongoctl][:log_dir]].each do |dir|
+    directory dir do
+      owner mongoctl_user[:username]
+      group mongoctl_user[:group] || mongoctl_user[:username]
+      recursive true
+    end
+  end
+
   template "#{config_dir}/#{node[:mongoctl][:servers_config_filename]}" do
     source node[:mongoctl][:servers_config_template]
     mode 0600
     owner mongoctl_user[:username]
     group mongoctl_user[:group] || mongoctl_user[:username]
-    variables({
-      # none yet
-    })
+    variables(
+      :dbpath => node[:mongoctl][:dbpath],
+      :logpath => "#{node[:mongoctl][:log_dir]}/#{node[:mongoctl][:log_filename]}"
+    )
   end
 
   template "#{config_dir}/#{node[:mongoctl][:clusters_config_filename]}" do
@@ -42,9 +51,6 @@ node[:mongoctl][:users].each do |mongoctl_user|
     mode 0600
     owner mongoctl_user[:username]
     group mongoctl_user[:group]
-    variables({
-      # none yet
-    })
   end
 
   template "#{config_dir}/#{node[:mongoctl][:config_filename]}" do
@@ -53,7 +59,6 @@ node[:mongoctl][:users].each do |mongoctl_user|
     owner mongoctl_user[:username]
     group mongoctl_user[:group] || mongoctl_user[:username]
     variables(
-      :install_dir => node[:mongoctl][:mongodb][:install_dir],
       :servers_config_filename => node[:mongoctl][:servers_config_filename],
       :clusters_config_filename => node[:mongoctl][:clusters_config_filename]
     )

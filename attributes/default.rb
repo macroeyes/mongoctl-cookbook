@@ -23,5 +23,9 @@ default[:mongoctl][:clusters_config_template] = 'clusters.config.json.erb'
 
 default[:mongoctl][:install_mongodb] = false
 
-default[:mongoctl][:mongodb][:install_dir] = '/opt/mongoctl/mongodb'
+default[:mongoctl][:dbpath] = '/var/lib/mongodb'
+default[:mongoctl][:log_dir] = '/var/log/mongodb'
+default[:mongoctl][:log_filename] = 'mongod.log'
+
+default[:mongoctl][:mongodb][:install_dir] = 'mongodb'
 default[:mongoctl][:mongodb][:install_version] = 'latest'
