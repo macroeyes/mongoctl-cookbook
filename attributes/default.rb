@@ -12,8 +12,8 @@ default[:mongoctl][:users] = []
 #   :config_dir => '/home/vagrant/.mongoctl'
 # }]
 
-default[:mongoctl][:config_filename] = 'mongoctl.config.json'
-default[:mongoctl][:config_template] = 'mongoctl.config.json.erb'
+default[:mongoctl][:config_filename] = 'mongoctl.config'
+default[:mongoctl][:config_template] = 'mongoctl.config.erb'
 
 default[:mongoctl][:servers_config_filename] = 'servers.config.json'
 default[:mongoctl][:servers_config_template] = 'servers.config.json.erb'
